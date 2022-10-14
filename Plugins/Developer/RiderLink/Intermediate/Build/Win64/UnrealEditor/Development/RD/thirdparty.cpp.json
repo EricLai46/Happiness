@@ -1,10 +1,10 @@
 {
     "Version": "1.1",
     "Data": {
-        "Source": "c:\\users\\pjian08\\desktop\\happiness\\happiness\\plugins\\developer\\riderlink\\source\\rd\\thirdparty\\thirdparty.cpp",
+        "Source": "c:\\happinese\\happiness\\plugins\\developer\\riderlink\\source\\rd\\thirdparty\\thirdparty.cpp",
         "ProvidedModule": "",
         "Includes": [
-            "c:\\users\\pjian08\\desktop\\happiness\\happiness\\plugins\\developer\\riderlink\\intermediate\\build\\win64\\unrealeditor\\development\\rd\\definitions.h"
+            "c:\\happinese\\happiness\\plugins\\developer\\riderlink\\intermediate\\build\\win64\\unrealeditor\\development\\rd\\definitions.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []
