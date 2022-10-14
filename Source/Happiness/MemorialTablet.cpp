@@ -6,7 +6,9 @@
 #include "Components/BoxComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SphereComponent.h"
-
+#include "Kismet/GameplayStatics.h"
+#include "particles/ParticleSystem.h"
+#include "particles/ParticleSystemComponent.h"
 // Sets default values
 AMemorialTablet::AMemorialTablet()
 {
@@ -23,6 +25,10 @@ void AMemorialTablet::BeginPlay()
 {
 	Super::BeginPlay();
 	MemorialTabletBoxComponent->OnComponentBeginOverlap.AddDynamic(this,&AMemorialTablet::OnSphereOverlap);
+	if(MemorialTabletParticleSystem)
+	{
+		MemorialtabletParticleSystemComponent = UGameplayStatics::SpawnEmitterAttached(MemorialTabletParticleSystem,MemorialTabletBoxComponent,FName(),GetActorLocation(),GetActorRotation(),EAttachLocation::KeepWorldPosition);
+	}
 }
 
 void AMemorialTablet::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,

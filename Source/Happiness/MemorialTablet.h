@@ -38,4 +38,10 @@ public:
 	class UStaticMeshComponent* MemorialStaticMeshComponent;
 	UPROPERTY(VisibleAnywhere,Category="MemorialTablet")
 	class UBoxComponent* MemorialTabletBoxComponent;
+
+	UPROPERTY(EditAnywhere,Category="MemorialTablet")
+	class UParticleSystem* MemorialTabletParticleSystem;
+
+	
+	class UParticleSystemComponent* MemorialtabletParticleSystemComponent;
 };
