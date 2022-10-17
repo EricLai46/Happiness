@@ -18,6 +18,11 @@ AMemorialTablet::AMemorialTablet()
     MemorialTabletBoxComponent=CreateDefaultSubobject<UBoxComponent>(TEXT("MemorialTabletSphereComponent"));
 	SetRootComponent(MemorialStaticMeshComponent);
 	MemorialTabletBoxComponent->SetupAttachment(GetRootComponent());
+	if(MemorialTabletParticleSystem)
+	{
+		MemorialtabletParticleSystemComponent = UGameplayStatics::SpawnEmitterAttached(MemorialTabletParticleSystem,MemorialTabletBoxComponent,FName(),GetActorLocation(),GetActorRotation(),EAttachLocation::KeepWorldPosition);
+	}
+	
 }
 
 // Called when the game starts or when spawned
@@ -25,21 +30,20 @@ void AMemorialTablet::BeginPlay()
 {
 	Super::BeginPlay();
 	MemorialTabletBoxComponent->OnComponentBeginOverlap.AddDynamic(this,&AMemorialTablet::OnSphereOverlap);
-	if(MemorialTabletParticleSystem)
-	{
-		MemorialtabletParticleSystemComponent = UGameplayStatics::SpawnEmitterAttached(MemorialTabletParticleSystem,MemorialTabletBoxComponent,FName(),GetActorLocation(),GetActorRotation(),EAttachLocation::KeepWorldPosition);
-	}
+	
 }
 
 void AMemorialTablet::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	AHappinessCharacter* MainCharacter=Cast<AHappinessCharacter>(OtherActor);
-		if(GEngine)
-		{
-			GEngine->AddOnScreenDebugMessage(-1,5.0f,FColor::Red,FString("Collision"),true,FVector2d(3.4,6.3));
-		}
-	UE_LOG(LogTemp, Warning, TEXT("Line Hit is %f"), 3.02f);
+if(MainCharacter)
+{
+	if(GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1,5.0f,FColor::Red,FString("Collision"),true,FVector2d(3.4,6.3));
+	}
+}
 }
 
 // Called every frame
