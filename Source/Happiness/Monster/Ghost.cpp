@@ -92,7 +92,14 @@ AHappinessCharacter* HappinessCharacter=Cast<AHappinessCharacter>(OtherActor);
 		{
 			GEngine->AddOnScreenDebugMessage(-1,5.0f,FColor::Red,FString("hhh"),true,FVector2d(3.4,6.3));
 		}*/
-		SetGhostState(GhostState::Idle);
+		if(Ghost_State==GhostState::Attack)
+		{
+			return;
+		}
+		else
+		{
+			SetGhostState(GhostState::Walk);
+		}
 	}
 	
 }
@@ -128,5 +135,6 @@ void AGhost::MovetoTarget(AHappinessCharacter* Character)
 
 void AGhost::AttackTarget(AHappinessCharacter* Character)
 {
+	
 	SetGhostState(GhostState::Attack);
 }
