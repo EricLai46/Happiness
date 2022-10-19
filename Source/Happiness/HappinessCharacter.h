@@ -45,14 +45,7 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "Interaction")
 	FOnUseItem OnUseItem;
 
-	bool IsThrowing();
-
-	UPROPERTY(EditAnywhere)
-	bool bIsThrowing;
-
-	void StartThrow();
-
-	void StopThrow();
+	
 	
 protected:
 	
