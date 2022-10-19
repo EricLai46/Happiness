@@ -41,3 +41,8 @@ void AHappinessProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActo
 		Destroy();
 	}
 }
+
+void AHappinessProjectile::gametest()
+{
+	return;
+}
