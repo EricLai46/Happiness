@@ -49,6 +49,7 @@ ATP_ThirdPersonCharacter::ATP_ThirdPersonCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
+	bIsThrowing=false;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -92,7 +93,8 @@ void ATP_ThirdPersonCharacter::TouchStopped(ETouchIndex::Type FingerIndex, FVect
 
 void ATP_ThirdPersonCharacter::StopThrow()
 {
-	
+	if(bIsThrowing==true)
+		bIsThrowing=false;
 }
 
 void ATP_ThirdPersonCharacter::TurnAtRate(float Rate)
@@ -138,5 +140,5 @@ void ATP_ThirdPersonCharacter::MoveRight(float Value)
 
 void ATP_ThirdPersonCharacter::StartThrow()
 {
-	
+	bIsThrowing=true;
 }
