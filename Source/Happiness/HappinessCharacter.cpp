@@ -22,9 +22,8 @@ AHappinessCharacter::AHappinessCharacter()
 
 	// Create a CameraComponent	
 	FirstPersonCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("FirstPersonCamera"));
-	FirstPersonCameraComponent->SetupAttachment(GetCapsuleComponent());
-	FirstPersonCameraComponent->SetRelativeLocation(FVector(-39.56f, 1.75f, 64.f)); // Position the camera
-	FirstPersonCameraComponent->bUsePawnControlRotation = true;
+	FirstPersonCameraComponent->SetupAttachment(GetMesh(),FName("head"));
+	
 
 	// Create a mesh component that will be used when being viewed from a '1st person' view (when controlling this pawn)
 	Mesh1P = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh1P"));
@@ -57,7 +56,9 @@ void AHappinessCharacter::SetupPlayerInputComponent(class UInputComponent* Playe
 
 	// Bind fire event
 	PlayerInputComponent->BindAction("PrimaryAction", IE_Pressed, this, &AHappinessCharacter::OnPrimaryAction);
-
+	PlayerInputComponent->BindAction("Throw", IE_Pressed, this, &AHappinessCharacter::StartThrow);
+	
+	
 	// Enable touchscreen input
 	EnableTouchscreenMovement(PlayerInputComponent);
 
@@ -72,6 +73,27 @@ void AHappinessCharacter::SetupPlayerInputComponent(class UInputComponent* Playe
 	PlayerInputComponent->BindAxis("Look Up / Down Mouse", this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("Turn Right / Left Gamepad", this, &AHappinessCharacter::TurnAtRate);
 	PlayerInputComponent->BindAxis("Look Up / Down Gamepad", this, &AHappinessCharacter::LookUpAtRate);
+}
+
+bool AHappinessCharacter::IsThrowing()
+{
+	return bIsThrowing;
+}
+
+void AHappinessCharacter::StartThrow()
+{
+	if(bIsThrowing==false)
+	bIsThrowing=true;
+	FTimerHandle UnusedHandle;
+	GetWorldTimerManager().SetTimer(
+		UnusedHandle, this, &AHappinessCharacter::StopThrow, 2.0, false);
+	
+}
+
+void AHappinessCharacter::StopThrow()
+{
+	if(bIsThrowing==true)
+		bIsThrowing=false;
 }
 
 void AHappinessCharacter::OnPrimaryAction()
