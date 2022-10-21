@@ -3,10 +3,14 @@
 #include "HappinessCharacter.h"
 #include "HappinessProjectile.h"
 #include "Animation/AnimInstance.h"
+#include "Blueprint/UserWidget.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/InputSettings.h"
+#include "Items/InventoryComponent.h"
+#include "Items/Item.h"
+#include "Items/InventoryComponent.h"
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -35,6 +39,25 @@ AHappinessCharacter::AHappinessCharacter()
 	Mesh1P->SetRelativeRotation(FRotator(1.9f, -19.19f, 5.2f));
 	Mesh1P->SetRelativeLocation(FVector(-0.5f, -4.4f, -155.7f));
 
+	//Create an InventoryComponent	
+	Inventory = CreateDefaultSubobject<UInventoryComponent>("Inventory");
+	Inventory->Capacity = 20;
+
+	/*
+
+	if(WBP_Inventoryclass!=nullptr)
+	{
+		WBP_Inventory=CreateWidget(GetWorld(),WBP_Inventoryclass);
+		if(WBP_Inventory!=nullptr)
+		{
+			//WBP_Inventory=Cast<UUserWidget>(WBP_Inventory);
+			WBP_Inventory->AddToViewport();
+
+		
+		}
+	}
+	*/
+	
 }
 
 void AHappinessCharacter::BeginPlay()
@@ -147,3 +170,13 @@ bool AHappinessCharacter::EnableTouchscreenMovement(class UInputComponent* Playe
 	
 	return false;
 }
+
+void AHappinessCharacter::UseItem(UItem* Item)
+{
+	if (Item)
+	{
+		Item->Use(this);
+		Item->OnUse(this); //bp event
+	}
+}
+

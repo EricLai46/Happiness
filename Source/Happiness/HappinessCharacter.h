@@ -30,6 +30,10 @@ class AHappinessCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FirstPersonCameraComponent;
 
+	/** Inventory */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	class UInventoryComponent* Inventory;
+	
 public:
 	AHappinessCharacter();
 
@@ -45,7 +49,10 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "Interaction")
 	FOnUseItem OnUseItem;
 
-	
+	UPROPERTY(EditAnywhere,Category="UserWidget")
+	class UUserWidget* WBP_Inventory;
+
+	TSubclassOf<UUserWidget> WBP_Inventoryclass; 
 	
 protected:
 	
@@ -102,5 +109,10 @@ public:
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
+	UFUNCTION(BlueprintCallable, Category = "Items")
+	void UseItem(class UItem* Item);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnUse(class AHappinessCharacter* Character);
 };
 

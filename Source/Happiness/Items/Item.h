@@ -18,6 +18,11 @@ public:
 
 	UItem();
 
+	virtual class UWorld* GetWorld() const { return World; };
+	
+	UPROPERTY(Transient)
+	class UWorld* World;
+
 	/**The text for using the item. (Exorcism, Key, etc)*/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
 	FText UseActionText;
@@ -28,17 +33,21 @@ public:
 
 	/**The thumbnail for this item*/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Item")
-	class UStaticMesh* Thumbnail;
+	class UTexture2D* Thumbnail;
 
 	/**The display name for this item in the inventory*/
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item", meta = (MultiLine = true))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
 	FText ItemDisplayName;
 
+	/**An optional description for the item*/
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item", meta = (MultiLine = true))
+	FText ItemDescription;
+	
 	/**The inventory that owns this item*/
 	UPROPERTY()
 	class UInventoryComponent* OwningInventory;
 
-	virtual void Use(class AHappinessCharacter* Character) PURE_VIRTUAL(UItem, );
+	virtual void Use(class AHappinessCharacter* Character);
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnUse(class AHappinessCharacter* Character);
